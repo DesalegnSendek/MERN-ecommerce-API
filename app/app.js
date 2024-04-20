@@ -2,6 +2,7 @@ const express = require('express');
 const userRouters = require('../routes/usersRoute.js');
 dbConnection = require('../config/dbConnect.js');
 const dotenv = require('dotenv');
+const {globalErrorHandler, NotFound} = require('../middlewares/globalErrorHandler.js');
 
 dotenv.config();
 
@@ -15,4 +16,7 @@ app.use(express.json());
 app.use("/", userRouters);
 
 
+//error handlers
+app.use(NotFound);
+app.use(globalErrorHandler);
 module.exports = app;
