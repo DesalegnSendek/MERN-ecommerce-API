@@ -1,17 +1,18 @@
 const express = require('express');
-const userRouter = require('../routes/usersRoute.js');
+const userRouters = require('../routes/usersRoute.js');
 dbConnection = require('../config/dbConnect.js');
 const dotenv = require('dotenv');
 
 dotenv.config();
 
-
 //dbconnection
 dbConnection();
 const app = express();
 
+//pass incoming request
+app.use(express.json());
 //routes
-app.use('/', userRouter);
+app.use("/", userRouters);
 
 
 module.exports = app;

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 
 
 const Schema = mongoose.Schema;
@@ -39,39 +40,39 @@ const userSchema = new Schema({
     shippingAddress:{
         firstname:{
             type: String,
-            required: true
+            required: false
         },
         lastname:{
             type: String,
-            required: true
+            required: false
         },
         address:{
             type: String,
-            required: true
+            required: false
         },
         city:{
             type: String,
-            required: true
+            required: false
         },
         state:{
             type: String,
-            required: true
+            required: false
         },
         postalcode:{
             type: String,
-            required: true
+            required: false
         },
         province:{
             type: String,
-            required: true
+            required: false
         },
         country:{
             type: String,
-            required: true
+            required: false
         },
         phone:{
             type: String,
-            required: true
+            required: false
         },
     }
 },
