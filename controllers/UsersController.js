@@ -47,23 +47,18 @@ const bcrypt = require('bcryptjs');
     const { email, password } = req.body;
     //fing user by email
     const user = await User.findOne({email});
-    if (!user) {
+   
+    if(user && await bcrypt.compare(password, user?.password)){
+        res.json({
+            status: 'Login successful',
+            msg: "Login successful",
+            user,
+        });
+    }else {
         return res.status(400).json({
-            msg: "User not found"
+            msg: "Invalid Login"
         });
     }
-    //check if password is correct
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-        return res.status(400).json({
-            msg: "Password is incorrect"
-        });
-    }
-    res.status(200).json({
-        status:'success',
-        msg: "User logged in successfully",
-        data: user,
-    });
  };
 
 module.exports = {registerUserController, loginUserController};
