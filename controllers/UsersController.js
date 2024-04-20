@@ -1,6 +1,8 @@
 const User = require("../models/User.js");
 const bcrypt = require('bcryptjs');
 const asyncHandler = require('express-async-handler');
+const generateToken = require("../utils/generateToken.js");
+
 
 
 //description Registration
@@ -54,6 +56,7 @@ const asyncHandler = require('express-async-handler');
                 status: 'Login successful',
                 msg: "Login successful",
                 user,
+                token: generateToken(user?._id),
             });
         }else {
            throw new Error("Invalid Credentials");
