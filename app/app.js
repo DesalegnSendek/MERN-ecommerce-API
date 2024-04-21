@@ -13,7 +13,7 @@ const app = express();
 //pass incoming request
 app.use(express.json());
 //routes
-app.use("/", userRouters);
+app.use("/api/v1/users/", userRouters);
 
 
 //error handlers

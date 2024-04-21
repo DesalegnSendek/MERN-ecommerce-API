@@ -2,6 +2,8 @@ const User = require("../models/User.js");
 const bcrypt = require('bcryptjs');
 const asyncHandler = require('express-async-handler');
 const generateToken = require("../utils/generateToken.js");
+const expressAsyncHandler = require("express-async-handler");
+const getTokenFromHeader = require("../utils/getTokenFromHeader.js");
 
 
 
@@ -62,6 +64,20 @@ const generateToken = require("../utils/generateToken.js");
            throw new Error("Invalid Credentials");
         }
      }
- )
+ );
 
-module.exports = {registerUserController, loginUserController};
+
+ //desc GET user profile
+ //route GET /api/v1/users/profile
+ //access private
+
+ const getUserProfile = expressAsyncHandler( async (req, res) => {
+    const token = getTokenFromHeader(req);
+    console.log(token);
+
+    res.json({
+        msg: "Welcome to the profile page",
+    })
+ })
+
+module.exports = {registerUserController, loginUserController, getUserProfile};
