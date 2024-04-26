@@ -105,17 +105,39 @@ const getAllProductsController = expressAsyncHandler( async (req, res) => {
 
    //end index of last item to show per page
    const endIndex = page * limit;
+
    //total
    const total = await Product.countDocuments();
 
    productQuery = productQuery.skip(startIndex).limit(limit);
-    //await query
-    const products = await productQuery;
+    
+   //pagination results and filtering results
+   const pagination = {};
+   if(endIndex < total){
+            pagination.next = {
+            page: page + 1,
+            limit,
+        };
+    }
 
-    res.status(200).json({
-        status: "success",
-        products,
-    });
+    if(startIndex > 0 ) {
+        pagination.prev = {
+        page: page - 1,
+        limit,
+        };
+    }
+        //await query
+        const products = await productQuery;
+
+        res.status(200).json({
+            status: "success",
+            total,
+            results: products.length,
+            pagination,
+            message: "Successfully fetched products",
+            products,
+        });
+    
 });
 
 
