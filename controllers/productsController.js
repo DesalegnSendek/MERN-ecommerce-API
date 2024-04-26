@@ -34,5 +34,17 @@ const createProductController =expressAsyncHandler( async (req, res) => {
     });
 })
 
+// description get all products
+// route GET /api/products
+// access public
 
-module.exports = createProductController
+const getAllProducts = expressAsyncHandler( async (req, res) => {
+    const products = await Product.find();
+    res.status(200).json({
+        status: "success",
+        products,
+    });
+})
+
+
+module.exports = {createProductController, getAllProducts}
