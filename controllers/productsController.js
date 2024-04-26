@@ -205,4 +205,25 @@ const updateSingleProduct = expressAsyncHandler( async (req, res) => {
     }
 );
 
-module.exports = { createProductController, getAllProductsController, getSingleProduct, updateSingleProduct }
+//description delete single product
+//route Delete /api/products/:id/delete
+//access private/admin
+const deleteSingleProduct = expressAsyncHandler( async (req, res) => {
+    console.log(req.params);
+    const product = await Product.findByIdAndDelete(req.params.id); 
+
+    //if there is no product
+    if(!product){
+        return res.status(404).json({
+            status: "error",
+            msg: "Product not found",
+        });
+    }
+    //success message for the product
+    res.status(200).json({
+        status: "success",
+        msg: "Product deleted successfully",
+    });
+}
+);
+module.exports = { createProductController, getAllProductsController, getSingleProduct, updateSingleProduct, deleteSingleProduct }
