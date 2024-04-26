@@ -137,10 +137,29 @@ const getAllProductsController = expressAsyncHandler( async (req, res) => {
             message: "Successfully fetched products",
             products,
         });
-    
 });
 
+//description GET single product
+//route GET /api/products/:id
+//access public
+const getSingleProduct = expressAsyncHandler( async (req, res) => {
+        console.log(req.params);
+        const product = await Product.findById(req.params.id); 
 
+        //if there is no product
+        if(!product){
+            return res.status(404).json({
+                status: "error",
+                msg: "Product not found",
+            });
+        }
+        //success message for the product
+        res.status(200).json({
+            status: "success",
+            msg: "Product fetched successfully",
+            product,
+        });
+    }
+)
 
-
-module.exports = {createProductController, getAllProductsController}
+module.exports = {createProductController, getAllProductsController, getSingleProduct}
