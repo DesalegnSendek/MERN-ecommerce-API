@@ -50,6 +50,48 @@ const getAllProductsController = expressAsyncHandler( async (req, res) => {
         name:{ $regex: req.query.name, $options:"i" },
     });
    }
+   //filter by brand name
+   if(req.query.brand)
+   {
+    productQuery = productQuery.find({
+        brand:{ $regex: req.query.brand, $options:"i" },
+    });
+   }
+
+   //filter by category name
+   if(req.query.category)
+   {
+    productQuery = productQuery.find({
+        category:{ $regex: req.query.category, $options:"i" },
+    });
+   }
+   //filter by color name
+   if(req.query.colors)
+   {
+    productQuery = productQuery.find({
+        colors:{ $regex: req.query.colors, $options:"i" },
+    });
+   }
+
+   //filter by size
+   if(req.query.sizes)
+   {
+    productQuery = productQuery.find({
+        sizes:{ $regex: req.query.sizes, $options:"i" },
+    });
+   }
+
+   //filter by price
+   if(req.query.price)
+   {
+    const priceRange = req.query.price.split("-");
+    //gte: greater than or equal to
+    //lte: less than or equal to
+    productQuery = productQuery.find({
+        price:{ $gte: priceRange[0], $lte: priceRange[1] },
+    });     
+   }
+
     //await query
     const products = await productQuery;
 
