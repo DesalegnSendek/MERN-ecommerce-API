@@ -92,6 +92,23 @@ const getAllProductsController = expressAsyncHandler( async (req, res) => {
     });     
    }
 
+
+   //pagination
+   //page number
+   const page = parseInt(req.query.page) ? parseInt(req.query.page) : 1;
+
+   //limit number of items to show per page
+   const limit = parseInt(req.query.limit) ? parseInt(req.query.limit) : 10;
+
+   //start index of first item to show per page
+   const startIndex = (page - 1) * limit;
+
+   //end index of last item to show per page
+   const endIndex = page * limit;
+   //total
+   const total = await Product.countDocuments();
+
+   productQuery = productQuery.skip(startIndex).limit(limit);
     //await query
     const products = await productQuery;
 
