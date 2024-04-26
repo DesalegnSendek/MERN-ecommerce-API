@@ -160,6 +160,49 @@ const getSingleProduct = expressAsyncHandler( async (req, res) => {
             product,
         });
     }
-)
+);
 
-module.exports = {createProductController, getAllProductsController, getSingleProduct}
+//description update single product
+//route PUT /api/products/:id/update
+//access private/admin
+const updateSingleProduct = expressAsyncHandler( async (req, res) => {
+    const {
+        name,
+        description,
+        category,
+        sizes,
+        colors,
+        user,
+        price,
+        totalQty,
+        brand
+    } = req.body;
+
+    //update product
+    const product = await Product.findByIdAndUpdate(
+        req.params.id,
+        {
+            name,
+            description,
+            category,
+            sizes,
+            colors,
+            user: req.userAuthId,
+            price,
+            totalQty,
+            brand,
+        },
+        {
+            new: true,
+        }
+    );
+
+    res.status(200).json({
+        status: "success",
+        message: "Product updated successfully",
+        product,
+    });
+    }
+);
+
+module.exports = { createProductController, getAllProductsController, getSingleProduct, updateSingleProduct }
