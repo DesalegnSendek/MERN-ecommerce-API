@@ -4,6 +4,8 @@ const asyncHandler = require('express-async-handler');
 const generateToken = require("../utils/generateToken.js");
 const expressAsyncHandler = require("express-async-handler");
 const getTokenFromHeader = require("../utils/getTokenFromHeader.js");
+const verifyToken = require("../utils/verifyToken.js");
+
 
 
 
@@ -73,8 +75,9 @@ const getTokenFromHeader = require("../utils/getTokenFromHeader.js");
 
  const getUserProfile = expressAsyncHandler( async (req, res) => {
     const token = getTokenFromHeader(req);
-    console.log(token);
-
+    //verify token
+    const verified = verifyToken(token);
+    console.log(req);
     res.json({
         msg: "Welcome to the profile page",
     })
