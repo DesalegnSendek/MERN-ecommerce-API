@@ -38,13 +38,28 @@ const createProductController =expressAsyncHandler( async (req, res) => {
 // route GET /api/products
 // access public
 
-const getAllProducts = expressAsyncHandler( async (req, res) => {
-    const products = await Product.find();
+const getAllProductsController = expressAsyncHandler( async (req, res) => {
+    console.log(req.query);
+    //query
+    let productQuery = Product.find();
+  
+   //Search by name
+   if(req.query.name)
+   {
+    productQuery = productQuery.find({
+        name:{ $regex: req.query.name, $options:"i" },
+    });
+   }
+    //await query
+    const products = await productQuery;
+
     res.status(200).json({
         status: "success",
         products,
     });
-})
+});
 
 
-module.exports = {createProductController, getAllProducts}
+
+
+module.exports = {createProductController, getAllProductsController}
