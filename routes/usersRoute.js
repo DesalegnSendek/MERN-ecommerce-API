@@ -8,4 +8,5 @@ userRouters.post('/register', registerUserController);
 userRouters.post('/login', loginUserController);
 userRouters.get('/profile', isLoggedIn, getUserProfile);
 
+
 module.exports = userRouters;
