@@ -1,5 +1,5 @@
 //Brand schema
-const mongoose  = require("mongoose ");
+const mongoose  = require("mongoose");
 const  Schema = mongoose.Schema;
 
 const  BrandSchema = new Schema(
@@ -11,7 +11,7 @@ const  BrandSchema = new Schema(
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: true,
+      required: false,
     },
     products: [
       {
@@ -25,4 +25,4 @@ const  BrandSchema = new Schema(
 
 const  Brand = mongoose.model("Brand", BrandSchema);
 
-export default Brand;
+module.exports = Brand;
