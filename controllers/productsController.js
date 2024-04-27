@@ -1,38 +1,56 @@
 const expressAsyncHandler = require("express-async-handler");
-const  Product = require("../models/Product");
+const  Product = require("../models/Product.js");
+const Category = require("../models/Category.js");
 
 
 //description Create new product
 //route POST /api/v1/products
 //access method private/admin
-
-const createProductController =expressAsyncHandler( async (req, res) => {
-    const {name, description, category, sizes, colors, user, price, totalQty} = req.body;
-    //product exist
-    const productExist = await Product.findOne({name})
-    if(productExist){
-        const msg = "Product already exists"
-        throw new Error(msg);
+ const  createProductController = expressAsyncHandler(async (req, res) => {
+    console.log(req.body);
+    const  { name, description, category, sizes, colors, price, totalQty, brand } =
+      req.body;
+    //Product exists
+    const  productExists = await Product.findOne({ name });
+    if (productExists) {
+      throw new Error("Product Already Exists");
     }
-        //create new product
-    const product = await Product.create({
-        name,
-        description,
-        category,
-        sizes,
-        colors,
-        user: req.userAuthId,
-        price,
-        totalQty,
+    
+    //find the category
+    const  categoryFound = await Category.findOne({
+      name: category,
     });
-    //push product into category list
-    //send response to category
-    res.status(201).json({
-        status: "success",
-        msg: "Product created successfully",
-        product,
+    if (!categoryFound) {
+      throw new Error(
+        "Category not found, please create category first or check category name"
+      );
+    }
+    //create the product
+    const  product = await Product.create({
+      name,
+      description,
+      category,
+      sizes,
+      colors,
+      user: req.userAuthId,
+      price,
+      totalQty,
+      //images: convertedImgs,
     });
-})
+    //push the product into category
+    categoryFound.products.push(product._id);
+    //resave
+    await categoryFound.save();
+   
+    //send response
+    res.json({
+      status: "success",
+      message: "Product created successfully",
+      product,
+    });
+  });
+
+
 
 // description get all products
 // route GET /api/products

@@ -1,7 +1,6 @@
 const expressAsyncHandler = require("express-async-handler");
 const Category = require("../models/Category.js");
 
-
 //descriptiom create new category
 //route POST /api/v1/categories
 //access private/admin
@@ -17,9 +16,10 @@ const createCategoryController = expressAsyncHandler(async (req, res) => {
     }
     //category create
     const category = await Category.create({
-        name,
+        name:name.toLowerCase(),
         user: req.userAuthId,
     });
+
     //send response
     res.status(201).json({
         success: true,
@@ -79,7 +79,7 @@ const updateSingleCategory = expressAsyncHandler( async (req, res) => {
         category,
     });
     }
-);  
+);
 
 //description delete single category
 //route Delete /api/categories/:id/delete
