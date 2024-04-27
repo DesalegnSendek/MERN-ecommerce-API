@@ -1,5 +1,5 @@
 //Color schema
-const mongoose  = require("mongoose ");
+const mongoose = require('mongoose');
 const  Schema = mongoose.Schema;
 
 const  ColorSchema = new Schema(
@@ -13,10 +13,16 @@ const  ColorSchema = new Schema(
       ref: "User",
       required: true,
     },
+    products: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Product",
+      },
+    ],
   },
   { timestamps: true }
 );
 
 const  Color = mongoose.model("Color", ColorSchema);
 
-export default Color;
+module.exports = Color;
