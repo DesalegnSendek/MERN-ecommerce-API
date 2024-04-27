@@ -4,6 +4,7 @@ dbConnection = require('../config/dbConnect.js');
 const dotenv = require('dotenv');
 const {globalErrorHandler, NotFound} = require('../middlewares/globalErrorHandler.js');
 const productRouter = require('../routes/productsRoute.js');
+const categoriesRouter = require('../routes/categoriesRouter.js');
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ app.use(express.json());
 //routes
 app.use("/api/v1/users/", userRouters);
  app.use("/api/v1/products/", productRouter);
+ app.use("/api/v1/categories/", categoriesRouter);
 
 
 //error handlers
