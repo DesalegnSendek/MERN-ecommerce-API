@@ -77,4 +77,4 @@ CouponSchema.pre("validate", function (next) {
 
 const  Coupon = mongoose.model("Coupon", CouponSchema);
 
-export default Coupon;
+module.exports = Coupon;
