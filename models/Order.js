@@ -22,6 +22,7 @@ const  OrderSchema = new Schema(
     },
     orderNumber: {
       type: String,
+      required: true,
       default: randomTxt + randomNumbers,
     },
     //for stripe payment

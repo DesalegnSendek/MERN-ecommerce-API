@@ -17,4 +17,4 @@ couponsRouter.get("/", getAllCouponsController);
 couponsRouter.put("/update/:id", isLoggedIn, isAdmin, updateCouponController);
 couponsRouter.delete("/delete/:id", isLoggedIn, isAdmin, deleteCouponController);
 couponsRouter.get("/single", getCouponController);
-module.exports couponsRouter;
+module.exports = couponsRouter;

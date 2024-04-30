@@ -1,11 +1,12 @@
 const asyncHandler  = require("express-async-handler");
 const dotenv  = require("dotenv");
 dotenv.config();
-const Stripe  = require("stripe ");
+const Stripe  = require("stripe");
 const Order  = require("../models/Order.js");
 const Product  = require("../models/Product.js");
 const User  = require("../models/User.js");
 const Coupon  = require("../models/Coupon.js");
+
 //@desc create orders
 //@route POST /api/v1/orders
 //@access private
@@ -13,7 +14,7 @@ const Coupon  = require("../models/Coupon.js");
 //stripe instance
 const  stripe = new Stripe(process.env.STRIPE_KEY);
 
-export const  createOrderController = asyncHandler(async (req, res) => {
+ const  createOrderController = asyncHandler(async (req, res) => {
   // //get teh coupon
   // const  { coupon } = req?.query;
 
@@ -98,8 +99,7 @@ export const  createOrderController = asyncHandler(async (req, res) => {
 //@desc get all orders
 //@route GET /api/v1/orders
 //@access private
-
-export const  getAllordersController = asyncHandler(async (req, res) => {
+ const  getAllordersController = asyncHandler(async (req, res) => {
   //find all orders
   const  orders = await Order.find().populate("user");
   res.json({
@@ -112,8 +112,7 @@ export const  getAllordersController = asyncHandler(async (req, res) => {
 //@desc get single order
 //@route GET /api/v1/orders/:id
 //@access private/admin
-
-export const  getSingleOrderController = asyncHandler(async (req, res) => {
+ const  getSingleOrderController = asyncHandler(async (req, res) => {
   //get the id  = require(params
   const  id = req.params.id;
   const  order = await Order.findById(id);
@@ -128,8 +127,7 @@ export const  getSingleOrderController = asyncHandler(async (req, res) => {
 //@desc update order to delivered
 //@route PUT /api/v1/orders/update/:id
 //@access private/admin
-
-export const  updateOrderController = asyncHandler(async (req, res) => {
+ const  updateOrderController = asyncHandler(async (req, res) => {
   //get the id  = require(params
   const  id = req.params.id;
   //update
@@ -152,8 +150,7 @@ export const  updateOrderController = asyncHandler(async (req, res) => {
 //@desc get sales sum of orders
 //@route GET /api/v1/orders/sales/sum
 //@access private/admin
-
-export const  getOrderStatsController = asyncHandler(async (req, res) => {
+ const  getOrderStatsController = asyncHandler(async (req, res) => {
   //get order stats
   const  orders = await Order.aggregate([
     {
@@ -202,3 +199,5 @@ export const  getOrderStatsController = asyncHandler(async (req, res) => {
     saleToday,
   });
 });
+
+module.exports = {createOrderController, getAllordersController, getSingleOrderController, updateOrderController, getOrderStatsController };

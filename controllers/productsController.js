@@ -72,12 +72,9 @@ const Brand = require("../models/Brand.js");
     });
   });
 
-
-
 // description get all products
 // route GET /api/products
 // access public
-
 const getAllProductsController = expressAsyncHandler( async (req, res) => {
     console.log(req.query);
     //query

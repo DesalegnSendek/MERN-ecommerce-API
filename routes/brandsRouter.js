@@ -1,6 +1,10 @@
 const express = require('express');
 const {
-  createBrandController,deleteBrandController,getAllBrandsController,getSingleBrandController,updateBrandController,
+  createBrandController,
+  deleteBrandController,
+  getAllBrandsController,
+  getSingleBrandController,
+  updateBrandController,
 }  = require("../controllers/brandsController.js");
 
 const isLoggedIn = require('../middlewares/isLoggedIn.js');

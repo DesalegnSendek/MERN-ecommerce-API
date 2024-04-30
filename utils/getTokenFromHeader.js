@@ -1,4 +1,4 @@
-const getTokenFromHeader = (req)=>{
+const getTokenFromHeader = (req)=> {
     // console.log(req.headers);
     //get token from header
     const token = req?.headers?.authorization?.split(' ')[1];
