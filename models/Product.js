@@ -80,6 +80,7 @@ ProductSchema.virtual("qtyLeft").get(function () {
 //Total rating
 ProductSchema.virtual("totalReviews").get(function () {
   const  product = this;
+  //console.log("this", this);
   return product?.reviews?.length;
 });
 //average Rating
@@ -91,7 +92,7 @@ ProductSchema.virtual("averageRating").get(function () {
   });
   //calc average rating
   const  averageRating = Number(ratingsTotal / product?.reviews?.length).toFixed(
-    1
+    1 
   );
   return averageRating;
 });

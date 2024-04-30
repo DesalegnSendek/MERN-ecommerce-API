@@ -1,4 +1,4 @@
-const mongoose  = require("mongoose ");
+const mongoose  = require("mongoose");
 const  Schema = mongoose.Schema;
 //Generate random numbers for order
 const  randomTxt = Math.random().toString(36).substring(7).toLocaleUpperCase();
@@ -59,4 +59,4 @@ const  OrderSchema = new Schema(
 //compile to form model
 const  Order = mongoose.model("Order", OrderSchema);
 
-export default Order;
+module.exports = Order;
