@@ -11,7 +11,7 @@ const Review  = require("../models/Review.js");
    //1. Find the product
   const  { id } = req.params;
   // console.log(req.params);
-  const  productFound = await Product.findById(id);
+  const  productFound = await Product.findById(id).populate("reviews");
   //console.log(productFound);
   if (!productFound) {
     return res.status(404).json({
@@ -21,14 +21,14 @@ const Review  = require("../models/Review.js");
   }
    //check if user already reviewed this product
   const  hasReviewed = productFound?.reviews?.find((review) => {
+    //console.log(review);
     return review?.user?.toString() === req?.userAuthId?.toString();
   });
 
   if (hasReviewed) {
-    return res.status(404).json({
-      status: "error",
-      msg: "user has already reviewed the product",
-  });  }
+    throw new Error("You have already reviewed this pro duct.");
+  }
+
    //create review
   const  review = await Review.create({
     message,
