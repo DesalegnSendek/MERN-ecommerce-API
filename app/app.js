@@ -8,6 +8,8 @@ const productRouter = require('../routes/productsRoute.js');
 const categoriesRouter = require('../routes/categoriesRouter.js');
 const brandsRouter = require('../routes/brandsRouter.js');
 const colorRouter = require('../routes/colorRouter.js');
+const reviewRouter = require('../routes/reviewsRouter.js');
+
 
 dotenv.config(); 
 
@@ -23,6 +25,8 @@ app.use("/api/v1/products/", productRouter);
 app.use("/api/v1/categories/", categoriesRouter);
 app.use("/api/v1/brands/", brandsRouter);
 app.use("/api/v1/colors/", colorRouter);
+app.use("/api/v1/reviews/", reviewRouter);
+
 
 
 //error handlers

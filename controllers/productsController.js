@@ -167,7 +167,7 @@ const getAllProductsController = expressAsyncHandler( async (req, res) => {
         };
     }
         //await query
-        const products = await productQuery;
+        const products = await productQuery.populate('reviews');
 
         res.status(200).json({
             status: "success",
@@ -184,7 +184,7 @@ const getAllProductsController = expressAsyncHandler( async (req, res) => {
 //access public
 const getSingleProduct = expressAsyncHandler( async (req, res) => {
         console.log(req.params);
-        const product = await Product.findById(req.params.id); 
+        const product = await Product.findById(req.params.id).populate('reviews');
 
         //if there is no product
         if(!product){
