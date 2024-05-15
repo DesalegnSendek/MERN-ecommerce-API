@@ -1,12 +1,12 @@
 const exppress  = require("express");
 const {
-  createOrderController,
-  getAllordersController,
-  getSingleOrderController,
-  updateOrderController,
-  getOrderStatsController,
-}  = require("../controllers/orderController.js");
-const  isLoggedIn   = require("../middlewares/isLoggedIn.js");
+    createOrderController,
+    getAllordersController,
+    getOrderStatsController,
+    updateOrderController,
+    getSingleOrderController,
+ } = require("../controllers/orderController.js");
+const isLoggedIn = require("../middlewares/isLoggedIn.js");
 
 const  orderRouter = exppress.Router();
 

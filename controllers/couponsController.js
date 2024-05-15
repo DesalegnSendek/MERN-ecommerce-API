@@ -4,7 +4,7 @@ const Coupon  = require("../models/Coupon.js ");
 // @route   POST /api/v1/coupons
 // @access  Private/Admin
 
-export const  createCouponController = asyncHandler(async (req, res) => {
+const  createCouponController = asyncHandler(async (req, res) => {
   const  { code, startDate, endDate, discount } = req.body;
   console.log(req.body);
   //check if admin
@@ -39,7 +39,7 @@ export const  createCouponController = asyncHandler(async (req, res) => {
 // @route   GET /api/v1/coupons
 // @access  Private/Admin
 
-export const  getAllCouponsController = asyncHandler(async (req, res) => {
+const  getAllCouponsController = asyncHandler(async (req, res) => {
   const  coupons = await Coupon.find();
   res.status(200).json({
     status: "success",
@@ -51,7 +51,7 @@ export const  getAllCouponsController = asyncHandler(async (req, res) => {
 // @route   GET /api/v1/coupons/:id
 // @access  Private/Admin
 
-export const  getCouponController = asyncHandler(async (req, res) => {
+const  getCouponController = asyncHandler(async (req, res) => {
   const  coupon = await Coupon.findOne({ code: req.query.code });
   //check if is not found
   if (coupon === null) {
@@ -68,7 +68,7 @@ export const  getCouponController = asyncHandler(async (req, res) => {
   });
 });
 
-export const  updateCouponController = asyncHandler(async (req, res) => {
+const  updateCouponController = asyncHandler(async (req, res) => {
   const  { code, startDate, endDate, discount } = req.body;
   const  coupon = await Coupon.findByIdAndUpdate(
     req.params.id,
@@ -89,7 +89,7 @@ export const  updateCouponController = asyncHandler(async (req, res) => {
   });
 });
 
-export const  deleteCouponController = asyncHandler(async (req, res) => {
+const  deleteCouponController = asyncHandler(async (req, res) => {
   const  coupon = await Coupon.findByIdAndDelete(req.params.id);
   res.json({
     status: "success",

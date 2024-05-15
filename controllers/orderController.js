@@ -6,7 +6,6 @@ const Order  = require("../models/Order.js");
 const Product  = require("../models/Product.js");
 const User  = require("../models/User.js");
 const Coupon  = require("../models/Coupon.js");
-
 //@desc create orders
 //@route POST /api/v1/orders
 //@access private
@@ -14,7 +13,7 @@ const Coupon  = require("../models/Coupon.js");
 //stripe instance
 const  stripe = new Stripe(process.env.STRIPE_KEY);
 
- const  createOrderController = asyncHandler(async (req, res) => {
+const  createOrderController = asyncHandler(async (req, res) => {
   // //get teh coupon
   // const  { coupon } = req?.query;
 
@@ -49,7 +48,7 @@ const  stripe = new Stripe(process.env.STRIPE_KEY);
     user: user?._id,
     orderItems,
     shippingAddress,
-    // totalPrice: couponFound ? totalPrice - totalPrice * discount : totalPrice,
+    totalPrice: couponFound ? totalPrice - totalPrice * discount : totalPrice,
     totalPrice,
   });
 
@@ -99,7 +98,8 @@ const  stripe = new Stripe(process.env.STRIPE_KEY);
 //@desc get all orders
 //@route GET /api/v1/orders
 //@access private
- const  getAllordersController = asyncHandler(async (req, res) => {
+
+const  getAllordersController = asyncHandler(async (req, res) => {
   //find all orders
   const  orders = await Order.find().populate("user");
   res.json({
@@ -112,7 +112,8 @@ const  stripe = new Stripe(process.env.STRIPE_KEY);
 //@desc get single order
 //@route GET /api/v1/orders/:id
 //@access private/admin
- const  getSingleOrderController = asyncHandler(async (req, res) => {
+
+const getSingleOrderController = asyncHandler(async (req, res) => {
   //get the id  = require(params
   const  id = req.params.id;
   const  order = await Order.findById(id);
@@ -127,7 +128,8 @@ const  stripe = new Stripe(process.env.STRIPE_KEY);
 //@desc update order to delivered
 //@route PUT /api/v1/orders/update/:id
 //@access private/admin
- const  updateOrderController = asyncHandler(async (req, res) => {
+
+const updateOrderController = asyncHandler(async (req, res) => {
   //get the id  = require(params
   const  id = req.params.id;
   //update
@@ -150,7 +152,8 @@ const  stripe = new Stripe(process.env.STRIPE_KEY);
 //@desc get sales sum of orders
 //@route GET /api/v1/orders/sales/sum
 //@access private/admin
- const  getOrderStatsController = asyncHandler(async (req, res) => {
+
+const getOrderStatsController = asyncHandler(async (req, res) => {
   //get order stats
   const  orders = await Order.aggregate([
     {
@@ -200,4 +203,10 @@ const  stripe = new Stripe(process.env.STRIPE_KEY);
   });
 });
 
-module.exports = {createOrderController, getAllordersController, getSingleOrderController, updateOrderController, getOrderStatsController };
+module.exports = { 
+  createOrderController,
+  getOrderStatsController,
+  updateOrderController,
+  getSingleOrderController,
+  getAllordersController
+ };
